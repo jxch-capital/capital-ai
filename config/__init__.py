@@ -16,7 +16,6 @@ class Config(object):
     db_user = 'capital'
     db_password = 'capital'
     thread_pool_size = 33
-    __thread_pool = None
     db_conn = None
     pd2db_engine = None
     thread_pool = None
@@ -47,8 +46,7 @@ class Config(object):
         return self.thread_pool
 
     def create_thread_pool(self):
-        return ThreadPoolExecutor(
-            max_workers=self.thread_pool_size) if self.__thread_pool is None else self.__thread_pool
+        return ThreadPoolExecutor(max_workers=self.thread_pool_size)
 
     def close_thread_pool(self):
         self.thread_pool.shutdown()
@@ -57,6 +55,7 @@ class Config(object):
         self.close_db_conn() if self.db_conn else None
         self.close_pd2db_engine() if self.pd2db_engine else None
         self.close_thread_pool() if self.thread_pool else None
+        logging.info(f'已关闭数据连接和线程池')
 
 
 class DevConfigWinLocal(Config):
