@@ -34,6 +34,9 @@ class Config(object):
         self.pd2db_engine = self.pd2db_engine or self.create_pd2db_engine()
         return self.pd2db_engine
 
+    def close_pd2db_engine(self):
+        self.pd2db_engine.dispose()
+
     def create_pd2db_engine(self):
         return create_engine(
             f'{self.db_engine}://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_database}')
@@ -48,6 +51,11 @@ class Config(object):
 
     def close_thread_pool(self):
         self.thread_pool.shutdown()
+
+    def close(self):
+        self.close_db_conn()
+        self.close_pd2db_engine()
+        self.close_thread_pool()
 
 
 class DevConfigWinLocal(Config):
