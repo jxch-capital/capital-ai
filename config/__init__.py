@@ -53,9 +53,9 @@ class Config(object):
         self.thread_pool.shutdown()
 
     def close(self):
-        self.close_db_conn()
-        self.close_pd2db_engine()
-        self.close_thread_pool()
+        self.close_db_conn() if self.db_conn else None
+        self.close_pd2db_engine() if self.pd2db_engine else None
+        self.close_thread_pool() if self.thread_pool else None
 
 
 class DevConfigWinLocal(Config):
