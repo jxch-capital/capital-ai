@@ -65,7 +65,7 @@ class DevConfigWinLocal(Config):
     db_port = '15432'
 
     def __init__(self):
-        logging.basicConfig(level=logging.DEBUG)
+        logging.basicConfig(level=logging.INFO)
         enable_proxy()
 
     def creat_db_conn(self):
