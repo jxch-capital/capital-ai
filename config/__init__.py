@@ -1,6 +1,7 @@
 import psycopg2
 from sqlalchemy import create_engine
 from concurrent.futures import ThreadPoolExecutor
+from util import enable_proxy
 
 
 class Config(object):
@@ -53,6 +54,9 @@ class DevConfigWinLocal(Config):
     db_engine = 'postgresql+psycopg2'
     db_host = '127.0.0.1'
     db_port = '15432'
+
+    def __init__(self):
+        enable_proxy()
 
     def creat_db_conn(self):
         return psycopg2.connect(database=self.db_database, user=self.db_user, password=self.db_password,
