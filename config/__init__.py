@@ -2,6 +2,7 @@ import psycopg2
 from sqlalchemy import create_engine
 from concurrent.futures import ThreadPoolExecutor
 from util import enable_proxy
+import logging
 
 
 class Config(object):
@@ -64,6 +65,7 @@ class DevConfigWinLocal(Config):
     db_port = '15432'
 
     def __init__(self):
+        logging.basicConfig(level=logging.DEBUG)
         enable_proxy()
 
     def creat_db_conn(self):
